@@ -1,11 +1,19 @@
 viper consul remote 
 ----
 
+viper 使用了 `https://github.com/bketelsen/crypt` 库作为远程配置中心。对 `etcd`的支持比较好，`consul` 的支持并不完整。
 
-使用方法
+`viper-consul-remote`适用于使用 `consul` 作为配置中心，并使用 `viper` 作为配置库。 
+
+## example
+引入 remote 库
 ```
-v := viper.New()
-	v.AddSecureRemoteProvider("consul", "dev.env.devops.nx.cn:8500", "jzh/dev/log_test/test.yaml", "feec61ec-8d6f-c59e-7514-eb62e6635b6a")
+_ "git.nxdev.cn/pkg/viper-consul-remote/remote"
+```
+
+```
+	v := viper.New()
+	v.AddSecureRemoteProvider("consul", "<host>:8500", "<consul_path>", "<token>")
 	v.SetConfigType("yaml") // Need to explicitly set this to json
 
 	err := v.ReadRemoteConfig()
